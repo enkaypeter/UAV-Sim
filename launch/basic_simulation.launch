@@ -1,0 +1,14 @@
+<launch>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="paused" value="false" />
+    <arg name="use_sim_time" value="true" />
+  </include>
+
+  <!-- Launch MAVROS to connect to SITL (adjust fcu_url as needed) -->
+  <node pkg="mavros" type="mavros_node" name="mavros" output="screen">
+    <param name="fcu_url" value="udp://:14540@localhost:14557"/>
+  </node>
+
+  <!-- Launch the mission management node -->
+  <node pkg="uav_sim" type="mission_manager.py" name="mission_manager" output="screen"/>
+</launch>
